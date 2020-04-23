@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Todo</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+        }
+
+        .selected {
+            color: red;
+        }
+
+        .empty {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="todo-app">
+    <div>
+        <input type="button" value="全部标为完成" v-on:click="addTodo"/>
+        <input type="text" placeholder="添加 todo" v-model="newTodoTitle" @keyup.enter="addTodo"
+               v-bind:class="{empty:emptyChecked}"/>
+        <span v-if="emptyChecked" style="color: red">请输入内容!</span>
+    </div>
+    <!-- todo list -->
+    <ul>
+
+        <li v-for="todo in todos" :key="todo.id">
+            <span class="completed">{{todo.title}}</span>
+            <input type="button" value="标为完成">
+            <input type="button" value="删除">
+            <input type="text" value="编辑 todo..."/>
+        </li>
+
+
+        <!--        <li>-->
+        <!--            <span class="completed">学习 Vue</span>-->
+        <!--            <input type="button" value="标为完成">-->
+        <!--            <input type="button" value="删除">-->
+        <!--            <input type="text" value="编辑 todo..."/>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <span>整个牛项目</span>-->
+        <!--            <input type="button" value="标为完成">-->
+        <!--            <input type="button" value="删除">-->
+        <!--            <input type="text" value="编辑 todo..."/>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--            <span>迎娶白富美走上人生巅峰</span>-->
+        <!--            <input type="button" value="标为完成">-->
+        <!--            <input type="button" value="删除">-->
+        <!--            <input type="text" value="编辑 todo..."/>-->
+        <!--        </li>-->
+    </ul>
+    <!-- end todo list -->
+    <div>
+        <span>剩余 3 项未完成 ---</span>
+        <span>筛选：
+      <input type="button" class="selected" value="全部">
+      <input type="button" value="进行中">
+      <input type="button" value="已完成">
+      <input type="button" value="清除已完成">
+      <input type="button" value="清除全部">
+    </span>
+    </div>
+</div>
+</body>
+
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+
+<script>
+
+    let id = 0;
+    var app = new Vue({
+        el: '#todo-app',
+        data: function () {
+            return {
+                todos: [],
+                newTodoTitle: '',
+                checkEmpty: false,
+            }
+        },
+        methods: {
+            addTodo: function () {
+                if (!this.newTodoTitle) {
+                    this.checkEmpty = true;
+                    return;
+                }
+                this.todos.push({id: id++, title: this.newTodoTitle})
+                this.newTodoTitle = ''
+                this.checkEmpty = false;
+            }
+        },
+        computed: {
+            emptyChecked: function () {
+                return this.newTodoTitle.length === 0 && this.checkEmpty
+            }
+        }
+
+
+    })
+
+</script>
+</html>
