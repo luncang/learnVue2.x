@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Vue Todo Tutorial</title>
+</head>
+
+<body>
+<div id="app">
+    <!--    {{message}}-->
+
+    <input type="text" v-model="values" v-bind:class="{empty:!count}">
+    <input type="button" value="发送" v-on:click="send">
+    <div v-show="values">value 的值是:{{values}},value的统计：{{count}}</div>
+
+</div>
+
+
+</body>
+
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                values: 'vvvvv'
+            }
+        },
+        methods: {
+            send: function () {
+                if (this.values.length === 0) {
+                    alert("请输入内容")
+                    return
+                }
+                alert("发送成功");
+                this.values = ''
+            },
+        },
+        computed: {
+            count: function () {
+                return this.values.length;
+            }
+        }
+
+    })
+</script>
+<style>
+    .empty {
+        border-color: red;
+    }
+
+
+</style>
+
+
+</html>
