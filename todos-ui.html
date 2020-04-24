@@ -32,12 +32,19 @@
             <span v-bind:class="{completed:todo.isComplete}">{{todo.title}}</span>
             <input type="button" value="标为完成" @click="markAsComplete(todo)" v-if="!todo.isComplete">
             <input type="button" value="标为未完成" @click="markAsUnComplete(todo)" v-if="todo.isComplete">
-            <input type="button" value="删除">
+            <input type="button" value="删除" @click="removeTodo(todo)">
             <input type="text" value="编辑 todo..."/>
         </li>
 
 
     </ul>
+
+    <div v-if="hasRemovedTodo">
+        <br/>
+        <input type="button" value="撤销删除" @click="restoreTodo()">
+    </div>
+
+
     <!-- end todo list -->
     <div>
         <span>剩余 3 项未完成 ---</span>
@@ -64,6 +71,7 @@
                 todos: [],
                 newTodoTitle: '',
                 checkEmpty: false,
+                removedTodo: null,
             }
         },
         methods: {
@@ -83,12 +91,32 @@
 
             markAsUnComplete: function (todo) {
                 todo.isComplete = false;
+            },
+            removeTodo: function (todo) {
+                if (!confirm("确认删除？")) {
+                    return;
+                }
+                let pos = this.todos.indexOf(todo);
+                this.removedTodo = {
+                    pos: pos,
+                    todo: this.todos.splice(this.todos.indexOf(todo), 1)[0]
+                }
+
+            },
+            restoreTodo: function (todo) {
+                let pos = this.removedTodo.pos;
+                let restored = this.removedTodo.todo;
+                this.todos.splice(pos, 0, restored);
+                this.removedTodo = null;
             }
 
         },
         computed: {
             emptyChecked: function () {
                 return this.newTodoTitle.length === 0 && this.checkEmpty
+            },
+            hasRemovedTodo: function () {
+                return this.removedTodo != null;
             }
         }
 
