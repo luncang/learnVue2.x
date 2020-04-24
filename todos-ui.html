@@ -29,31 +29,14 @@
     <ul>
 
         <li v-for="todo in todos" :key="todo.id">
-            <span class="completed">{{todo.title}}</span>
-            <input type="button" value="标为完成">
+            <span v-bind:class="{completed:todo.isComplete}">{{todo.title}}</span>
+            <input type="button" value="标为完成" @click="markAsComplete(todo)" v-if="!todo.isComplete">
+            <input type="button" value="标为未完成" @click="markAsUnComplete(todo)" v-if="todo.isComplete">
             <input type="button" value="删除">
             <input type="text" value="编辑 todo..."/>
         </li>
 
 
-        <!--        <li>-->
-        <!--            <span class="completed">学习 Vue</span>-->
-        <!--            <input type="button" value="标为完成">-->
-        <!--            <input type="button" value="删除">-->
-        <!--            <input type="text" value="编辑 todo..."/>-->
-        <!--        </li>-->
-        <!--        <li>-->
-        <!--            <span>整个牛项目</span>-->
-        <!--            <input type="button" value="标为完成">-->
-        <!--            <input type="button" value="删除">-->
-        <!--            <input type="text" value="编辑 todo..."/>-->
-        <!--        </li>-->
-        <!--        <li>-->
-        <!--            <span>迎娶白富美走上人生巅峰</span>-->
-        <!--            <input type="button" value="标为完成">-->
-        <!--            <input type="button" value="删除">-->
-        <!--            <input type="text" value="编辑 todo..."/>-->
-        <!--        </li>-->
     </ul>
     <!-- end todo list -->
     <div>
@@ -89,10 +72,19 @@
                     this.checkEmpty = true;
                     return;
                 }
-                this.todos.push({id: id++, title: this.newTodoTitle})
+                this.todos.push({id: id++, title: this.newTodoTitle, isComplete: false})
                 this.newTodoTitle = ''
                 this.checkEmpty = false;
+            },
+
+            markAsComplete: function (todo) {
+                todo.isComplete = true;
+            },
+
+            markAsUnComplete: function (todo) {
+                todo.isComplete = false;
             }
+
         },
         computed: {
             emptyChecked: function () {
