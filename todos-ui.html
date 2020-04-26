@@ -29,11 +29,18 @@
     <ul>
 
         <li v-for="todo in todos" :key="todo.id">
-            <span v-bind:class="{completed:todo.isComplete}">{{todo.title}}</span>
+            <span v-bind:class="{completed:todo.isComplete}">
+                <span v-bind:class="{finished:todo.finished}" @dblclick="editTodo(todo)">
+                      {{todo.title}}
+                </span>
+            </span>
             <input type="button" value="标为完成" @click="markAsComplete(todo)" v-if="!todo.isComplete">
             <input type="button" value="标为未完成" @click="markAsUnComplete(todo)" v-if="todo.isComplete">
             <input type="button" value="删除" @click="removeTodo(todo)">
-            <input type="text" value="编辑 todo..."/>
+            <input type="text" value="编辑 todo..." v-if="editedTodo!==null && todo.id === editedTodo.id"
+                   v-model="todo.title"
+                   @keyup.enter="editDone(todo)"
+                   @keyup.esc="cancelEdit(todo)"/>
         </li>
 
 
@@ -72,6 +79,7 @@
                 newTodoTitle: '',
                 checkEmpty: false,
                 removedTodo: null,
+                editedTodo: null,
             }
         },
         methods: {
@@ -108,6 +116,26 @@
                 let restored = this.removedTodo.todo;
                 this.todos.splice(pos, 0, restored);
                 this.removedTodo = null;
+                if (this.editedTodo != null) {
+                    restored.title = this.editedTodo.title;
+                    this.editedTodo = null;
+                }
+            },
+
+            editTodo: function (todo) {
+                this.editedTodo = {id: todo.id, title: todo.title, finished: todo.finished}
+            },
+            editDone: function (todo) {
+
+                if (todo.title.length === 0) {
+                    this.removeTodo(todo);
+                    return;
+                }
+                this.editedTodo = null;
+            },
+            cancelEdit: function (todo) {
+                todo.title = this.editedTodo.title;
+                this.editedTodo = null;
             }
 
         },
