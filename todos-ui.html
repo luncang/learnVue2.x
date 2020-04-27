@@ -20,8 +20,8 @@
 <body>
 <div id="todo-app">
     <div>
-        <input type="button" value="全部标为完成" v-on:click="addTodo"/>
-        <input type="text" placeholder="添加 todo" v-model="newTodoTitle" @keyup.enter="addTodo"
+        <input type="button" value="全部标为完成" v-on:click="markAllAsCompleted"/>
+        <input type="text" placeholder="添加 todo" v-model="newTodoTitle" @keyup.enter="addTodo" v-focus="true"
                v-bind:class="{empty:emptyChecked}"/>
         <span v-if="emptyChecked" style="color: red">请输入内容!</span>
     </div>
@@ -55,7 +55,7 @@
 
     <!-- end todo list -->
     <div>
-        <span>剩余 3 项未完成 ---</span>
+        <span>剩余{{leftTodosCount}}项未完成 ---</span>
         <span>筛选：
       <input type="button" class="selected" value="全部">
       <input type="button" value="进行中">
@@ -137,6 +137,13 @@
             cancelEdit: function (todo) {
                 todo.title = this.editedTodo.title;
                 this.editedTodo = null;
+            },
+            markAllAsCompleted: function (todo) {
+                this.todos.map(function (todo) {
+                    if (!todo.isComplete) {
+                        todo.isComplete = true;
+                    }
+                })
             }
 
         },
@@ -146,6 +153,9 @@
             },
             hasRemovedTodo: function () {
                 return this.removedTodo != null;
+            },
+            leftTodosCount: function () {
+                return this.todos.filter(todo => !todo.isComplete).length;
             }
         },
 
