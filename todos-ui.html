@@ -28,7 +28,7 @@
     <!-- todo list -->
     <ul>
 
-        <li v-for="todo in todos" :key="todo.id">
+        <li v-for="todo in filteredTodos" :key="todo.id">
             <span v-bind:class="{completed:todo.isComplete}">
                 <span v-bind:class="{finished:todo.finished}" @dblclick="editTodo(todo)">
                       {{todo.title}}
@@ -57,9 +57,9 @@
     <div>
         <span>剩余{{leftTodosCount}}项未完成 ---</span>
         <span>筛选：
-      <input type="button" class="selected" value="全部">
-      <input type="button" value="进行中">
-      <input type="button" value="已完成">
+      <input type="button" class="selected" value="全部" @click="intention='all'">
+      <input type="button" value="进行中"  @click="intention='ongoing'">
+      <input type="button" value="已完成"  @click="intention='finished'">
       <input type="button" value="清除已完成">
       <input type="button" value="清除全部">
     </span>
@@ -81,6 +81,7 @@
                 checkEmpty: false,
                 removedTodo: null,
                 editedTodo: null,
+                intention: 'all',
             }
         },
         methods: {
@@ -154,8 +155,22 @@
             hasRemovedTodo: function () {
                 return this.removedTodo != null;
             },
+            leftTodos: function () {
+                return this.todos.filter(todo => !todo.isComplete);
+            },
+
             leftTodosCount: function () {
-                return this.todos.filter(todo => !todo.isComplete).length;
+                return this.leftTodos.length;
+            },
+            filteredTodos: function () {
+
+                if (this.intention === "ongoing") {
+                    return this.leftTodos
+                } else if (this.intention === "finished") {
+                    return this.todos.filter(todo => todo.isComplete)
+                } else {
+                    return this.todos;
+                }
             }
         },
 
