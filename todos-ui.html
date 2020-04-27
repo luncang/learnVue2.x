@@ -39,6 +39,7 @@
             <input type="button" value="删除" @click="removeTodo(todo)">
             <input type="text" value="编辑 todo..." v-if="editedTodo!==null && todo.id === editedTodo.id"
                    v-model="todo.title"
+                   v-focus="true"
                    @keyup.enter="editDone(todo)"
                    @keyup.esc="cancelEdit(todo)"/>
         </li>
@@ -145,6 +146,14 @@
             },
             hasRemovedTodo: function () {
                 return this.removedTodo != null;
+            }
+        },
+
+        directives: {
+            focus: {
+                inserted: function (el) {
+                    el.focus();
+                }
             }
         }
 
