@@ -20,7 +20,7 @@
 <body>
 <div id="todo-app">
     <div>
-        <input type="button" value="全部标为完成" v-on:click="markAllAsCompleted"/>
+        <input type="button" value="全部标为完成" v-on:click="markAllAsCompleted" v-if="filteredTodos.length!==0"/>
         <input type="text" placeholder="添加 todo" v-model="newTodoTitle" @keyup.enter="addTodo" v-focus="true"
                v-bind:class="{empty:emptyChecked}"/>
         <span v-if="emptyChecked" style="color: red">请输入内容!</span>
@@ -54,8 +54,9 @@
 
 
     <!-- end todo list -->
-    <div>
-        <span>剩余{{leftTodosCount}}项未完成 ---</span>
+    <div v-if="filteredTodos.length!==0">
+        <span v-if="leftTodosCount!==0">剩余{{leftTodosCount}}项未完成 ---</span>
+        <span v-if="leftTodosCount===0">全部完成，你真是太优秀了 ---</span>
         <span>筛选：
       <input type="button" v-bind:class="{selected:intention==='all'}" value="全部" @click="intention='all'">
       <input type="button" v-bind:class="{selected:intention==='ongoing'}" value="进行中" @click="intention='ongoing'">
@@ -148,6 +149,14 @@
                 })
             },
             clear: function (tag) {
+                if(tag ===null){
+                    return;
+                }
+
+                if(!confirm("确定要删除吗？")){
+                    return;
+                }
+
                 if (tag === 'all') {
                     this.todos.splice(0, this.todos.length)
                 } else if (tag === 'finished') {
