@@ -73,11 +73,29 @@
 <script>
 
     let id = 0;
+
+    var storage_key = 'vue2.x-todo';
+
+    var todoStorage = {
+        fetch: function () {
+            var todos = JSON.parse(localStorage.getItem(storage_key) || '[]');
+            todos.forEach(function (todo, index) {
+                todo.id = index
+            });
+            todoStorage.uid = todos.length;
+            return todos;
+        },
+        save: function (todos) {
+            localStorage.setItem(storage_key, JSON.stringify(todos));
+        }
+    }
+
+
     var app = new Vue({
         el: '#todo-app',
         data: function () {
             return {
-                todos: [],
+                todos: todoStorage.fetch(),
                 newTodoTitle: '',
                 checkEmpty: false,
                 removedTodo: null,
@@ -92,7 +110,7 @@
                     this.checkEmpty = true;
                     return;
                 }
-                this.todos.push({id: id++, title: this.newTodoTitle, isComplete: false})
+                this.todos.push({id: todoStorage.uid++, title: this.newTodoTitle, isComplete: false})
                 this.newTodoTitle = ''
                 this.checkEmpty = false;
             },
@@ -149,11 +167,11 @@
                 })
             },
             clear: function (tag) {
-                if(tag ===null){
+                if (tag === null) {
                     return;
                 }
 
-                if(!confirm("确定要删除吗？")){
+                if (!confirm("确定要删除吗？")) {
                     return;
                 }
 
@@ -189,6 +207,15 @@
                     return this.todos;
                 }
 
+            }
+        },
+// 监测 todos 列表的变化，将变化存储到 local storage
+        watch: {
+            todos: {
+                handler: function (todos) {
+                    todoStorage.save(todos);
+                },
+                deep: true
             }
         },
 
