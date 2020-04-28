@@ -60,8 +60,8 @@
       <input type="button" v-bind:class="{selected:intention==='all'}" value="全部" @click="intention='all'">
       <input type="button" v-bind:class="{selected:intention==='ongoing'}" value="进行中" @click="intention='ongoing'">
       <input type="button" v-bind:class="{selected:intention==='finished'}" value="已完成" @click="intention='finished'">
-      <input type="button" value="清除已完成">
-      <input type="button" value="清除全部">
+      <input type="button" value="清除已完成" @click="clear('finished')">
+      <input type="button" value="清除全部" @click="clear('all')">
     </span>
     </div>
 </div>
@@ -146,6 +146,13 @@
                         todo.isComplete = true;
                     }
                 })
+            },
+            clear: function (tag) {
+                if (tag === 'all') {
+                    this.todos.splice(0, this.todos.length)
+                } else if (tag === 'finished') {
+                    this.todos = this.todos.filter(todo => !todo.isComplete)
+                }
             }
 
         },
@@ -172,6 +179,7 @@
                 } else {
                     return this.todos;
                 }
+
             }
         },
 
