@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    {{ message }}
+    <br/>
+    您喜欢的游戏是:{{mygame}}
+
+    <br/>
+    <input value="" v-model="mygame">
+
+    <h3>游戏列表</h3>
+    <div v-if="seen">2017最新发卖</div>
+    <button v-on:click="btnClick('我的世界')">我的世界</button>
+    <button v-on:click="btnClick('地下城勇士')">地下城勇士</button>
+    <button @click="btnClick('lol')">lol</button>
+    <button>dota</button>
+    <br/>
+
+    <ol>
+        <game-item v-for="game in games" v-bind:game="game"></game-item>
+    </ol>
+    <br/>
+    <ol>
+        <li v-for="game in games">
+            游戏名字：{{game.title}}，价格：{{game.price}}
+        </li>
+    </ol>
+
+</div>
+
+
+<script>
+
+    Vue.component("game-item", {
+        props: ['game'],
+        template: '<li>{{game.title}}</li>'
+    });
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            seen: true,
+            games: [{title: "game1", price: 201},
+                {title: "game2", price: 202},
+                {title: "game3", price: 203},
+            ],
+            mygame: '超级马里奥'
+        },
+        methods: {
+            btnClick: function (name) {
+                this.mygame = name
+            }
+        }
+    })
+
+
+</script>
+
+</body>
+</html>
