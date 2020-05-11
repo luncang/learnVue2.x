@@ -35,7 +35,10 @@
             游戏名字：{{game.title}}，价格：{{game.price}}
         </li>
     </ol>
+    <br/>
+    原来的几个：{{price}},日本价格：{{priceInTax}},{{priceInTax}},{{priceInTax}},{{priceInTax}},{{priceInTax}},中国价格:{{priceInChina}}
 
+    <button @click="computer()" value="computer"/>
 </div>
 
 
@@ -57,11 +60,17 @@
                 {title: "game3", price: 203},
             ],
             mygame: '超级马里奥',
+            price: 1000,
+            methodTest: 1,
+            computedTest: 1,
 
         },
         methods: {
             btnClick: function (name) {
                 this.mygame = name
+            },
+            computer: function () {
+                console.log('computer:' + this.methodTest++);
             }
         },
         filters: {
@@ -70,6 +79,17 @@
             },
             topercentage: function (value) {
                 return value * 100 + '%';
+            }
+        },
+        computed: {
+            priceInTax: function () {
+                // alert('priceInTax')
+                console.log(this.computedTest++)
+                return this.price * 1.08;
+            },
+            priceInChina: function () {
+                // alert('priceInChina')
+                return Math.round(this.priceInTax / 16.75)
             }
         }
     })
