@@ -57,6 +57,12 @@
     <br/>
     <p v-bind:class="cssObj">红色文本对象</p><br/>
     <button @click="changeColorObj">改变文本颜色对象</button>
+    <h3 v-if="goals===0">成绩未公布</h3>
+    <h3 v-else-if="goals<60">成绩不及格</h3>
+    <h3 v-else-if="goals<90">成绩良好</h3>
+    <h3 v-else>成绩非常好，玩游戏吧</h3>
+
+    <button @click="changeGoals">改变成绩</button>
 
 </div>
 
@@ -86,7 +92,8 @@
             cssObj: {
                 red: true,
                 big: true
-            }
+            },
+            goals: 0,
 
         },
         methods: {
@@ -101,6 +108,9 @@
             },
             changeColorObj: function () {
                 this.cssObj.red = !this.cssObj.red
+            },
+            changeGoals: function () {
+                this.goals = Math.round(Math.random() * 100)
             }
         },
         filters: {
