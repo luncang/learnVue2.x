@@ -40,8 +40,8 @@
     </ol>
     <br/>
     <ol>
-        <li v-for="game in games">
-            游戏名字：{{game.title}}，价格：{{game.price}}
+        <li v-for="(game,index) in games">
+            游戏名字：({{index+1}}) {{game.title}}，价格：{{game.price}}
         </li>
     </ol>
     <br/>
@@ -63,6 +63,10 @@
     <h3 v-else>成绩非常好，玩游戏吧</h3>
 
     <button @click="changeGoals">改变成绩</button>
+    <h3>循环js对象</h3>
+    <div v-for="(value,key) in mygame2">
+        {{key}}:{{value}}<br/>
+    </div>
 
 </div>
 
@@ -94,6 +98,14 @@
                 big: true
             },
             goals: 0,
+            mygame2: {
+                title: '超级马里奥',
+                price: 350,
+                pubdate: '2017年2月23日',
+                category: '涉及',
+                aggange: '全年龄'
+            }
+
 
         },
         methods: {
