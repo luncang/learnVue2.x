@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .red{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -39,7 +44,14 @@
     原来的几个：{{price}},日本价格：{{priceInTax}},{{priceInTax}},{{priceInTax}},{{priceInTax}},{{priceInTax}},中国价格:{{priceInChina}}
 
     <button @click="computer()" value="computer"/>
+
+
+    <br/>
+    <p v-bind:class="{red:isActive}">红色文本</p><br/>
+    <button @click="changeColor">改变文本颜色</button>
 </div>
+
+
 
 
 <script>
@@ -63,6 +75,7 @@
             price: 1000,
             methodTest: 1,
             computedTest: 1,
+            isActive: true,
 
         },
         methods: {
@@ -71,6 +84,9 @@
             },
             computer: function () {
                 console.log('computer:' + this.methodTest++);
+            },
+            changeColor: function () {
+                this.isActive = !this.isActive
             }
         },
         filters: {
