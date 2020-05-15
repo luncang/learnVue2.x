@@ -74,6 +74,21 @@
     <input type="checkbox" id="game3" value="塞尔达传说" v-model="checkedGames">塞尔达传说</input>
     <h3>您选择的游戏是:{{checkedGames}}</h3>
 
+    <h3>单选按钮</h3>
+    <h3>性别选择</h3>
+    <input type="radio" id="male" value="男" v-model="checkedSex">
+    <label for="male">男</label>
+    </input>
+    <input type="radio" id="female" value="女" v-model="checkedSex">
+    <label for="female">女</label> </input>
+    <h3>爱好选择</h3>
+    <input type="radio" id="game" value="打游戏" v-model="checkedHobby">打游戏</input>
+    <input type="radio" id="film" value="看电影" v-model="checkedHobby">看电影</input>
+
+    <h3>
+        性别是:{{checkedSex}},爱好是：{{checkedHobby}}
+    </h3>
+
 </div>
 
 
@@ -111,7 +126,9 @@
                 category: '涉及',
                 aggange: '全年龄'
             },
-            checkedGames:[]
+            checkedGames: [],
+            checkedSex: "",
+            checkedHobby: "",
 
 
         },
