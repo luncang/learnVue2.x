@@ -89,6 +89,32 @@
         性别是:{{checkedSex}},爱好是：{{checkedHobby}}
     </h3>
 
+    <h3>下拉框</h3>
+    <h3>你喜欢的NBA球星:</h3>
+
+    <select v-model="likedstar" style="width: 200px">
+        <option>科比1</option>
+        <option>科比2</option>
+        <option>科比3</option>
+        <option>科比4</option>
+        <option>科比5</option>
+
+    </select>
+
+    <h3>我喜欢的NBA球星:{{likedstar}}</h3>
+
+    <h3>你喜欢的全明星:</h3>
+
+    <select v-model="allstars" multiple style="width: 200px">
+        <option>科比1</option>
+        <option>科比2</option>
+        <option>科比3</option>
+        <option>科比4</option>
+        <option>科比5</option>
+
+    </select>
+
+    <h3>全明星:{{allstars}}</h3>
 </div>
 
 
@@ -129,6 +155,8 @@
             checkedGames: [],
             checkedSex: "",
             checkedHobby: "",
+            likedstar: "",
+            allstars: []
 
 
         },
