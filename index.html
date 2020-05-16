@@ -17,6 +17,18 @@
 <body>
 
 <div id="app">
+
+
+    <h3>注册</h3>
+    用户名：<input type="text" v-model.lazy="username" @change="checkUsername"><br/>
+    年龄：<input type="number" v-model.number="age"><br/>
+    一键：<input type="text" v-model.trim="content"><br/>
+
+    <p>您的用户名是:{{username}}</p>
+    <p>您的年龄是:{{age}}</p>
+    <p>您的一键是:{{content}}</p>
+
+
     {{ message }}
     {{ message | toupper}}
     {{number }}
@@ -128,6 +140,10 @@
     let app = new Vue({
         el: '#app',
         data: {
+            age: '',
+            content: '',
+            username: '',
+            isValidUserName: false,
             message: 'Hello Vue!',
             number: 0.5,
             seen: true,
@@ -175,6 +191,13 @@
             },
             changeGoals: function () {
                 this.goals = Math.round(Math.random() * 100)
+            },
+            checkUsername: function () {
+                if (this.username.length > 0) {
+                    this.isValidUserName = true
+                } else {
+                    this.isValidUserName = false
+                }
             }
         },
         filters: {
