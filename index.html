@@ -17,6 +17,8 @@
 <body>
 
 <div id="app">
+    <h3>组件变量验证</h3>
+    <show-user-info :age="100" :name="'charles'" :details="{'address':'china','language':'chinese'}"></show-user-info>
     <h3>为组件传递变量</h3>
     请输入你的名字：<input type="text" v-model="username">
     <my-name :pname="username"></my-name>
@@ -167,9 +169,37 @@
 
 <script>
 
-    Vue.component("my-name",{
-        props:['pname'],
-        template:'<div>您的名字是:<strong>{{pname}}</strong></div>'
+    Vue.component('show-user-info', {
+        props: {
+            name: {
+                type: String,
+                required: true
+            },
+            age: {
+                type: Number,
+                validator: function (value) {
+                    return value > 0 && value < 130
+                }
+            },
+            details: {
+                type: Object,
+                default: function () {
+                    return {
+                        'address': 'us',
+                        'language': 'english'
+                    }
+                }
+            }
+        },
+        template: '<div>您的名字是:<strong>{{this.name}}</strong><br/>' +
+            '您的年龄是:<strong>{{this.age}}</strong><br/>' +
+            '您的地址是：<strong>{{this.details.address}}</strong><br/>' +
+            '您的语言是：<strong>{{this.details.language}}</strong></div>'
+    })
+
+    Vue.component("my-name", {
+        props: ['pname'],
+        template: '<div>您的名字是:<strong>{{pname}}</strong></div>'
     })
 
     Vue.component('test-result', {
