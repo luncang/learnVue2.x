@@ -18,9 +18,14 @@
 
 <div id="app">
 
+    <h3>vue组件</h3>
+    <today-weather></today-weather>
+
 
     <h3>注册</h3>
-    用户名：<input type="text" v-model.lazy="username" @change="checkUsername"><br/>
+    用户名：<input type="text" v-model.lazy="username" @change="checkUsername">
+    <div v-if="username.length>0">可注册</div>
+    <br/>
     年龄：<input type="number" v-model.number="age"><br/>
     一键：<input type="text" v-model.trim="content"><br/>
 
@@ -136,6 +141,9 @@
         props: ['game'],
         template: '<li>{{game.title}}</li>'
     });
+    Vue.component("today-weather",{
+        template: '<div>今天下雨，出不去啦，干什么，看youbube吧</div>'
+    })
 
     let app = new Vue({
         el: '#app',
