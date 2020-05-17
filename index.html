@@ -17,6 +17,14 @@
 <body>
 
 <div id="app">
+    <h3>数据传递</h3>
+    <div>您的成绩评价：</div>
+    <test-result scores="50"></test-result>
+    <test-result scores="70"></test-result>
+    <test-result scores="90"></test-result>
+    <test-result scores="100"></test-result>
+
+
     <h3>组件的数据函数</h3>
     <div>今天的天气是：
         <today-weather/>
@@ -154,6 +162,25 @@
 
 
 <script>
+
+    Vue.component('test-result', {
+        props: ['scores'],
+        template: '<div><strong>您的成绩是：{{scores}},评价是:{{results}}</strong></div>',
+        computed: {
+            results: function () {
+                var result = ""
+                if (this.scores < 60) {
+                    result = "不及格"
+                } else if (this.scores < 90) {
+                    result = "中等"
+                } else {
+                    result = "优秀"
+                }
+                return result
+            }
+        }
+    });
+
     var row1 = {
         template: '<tr><td>1</td><td>塞尔达传说</td></tr>'
     }
