@@ -17,14 +17,20 @@
 <body>
 
 <div id="app">
+    <h3>组件的数据函数</h3>
+    <div>今天的天气是：
+        <today-weather/>
+    </div>
     <h3>表格组件</h3>
     <table border="1">
-        <tr><td>编号</td><td>名称</td></tr>
+        <tr>
+            <td>编号</td>
+            <td>名称</td>
+        </tr>
         <tr is="row1"></tr>
         <tr is="row2"></tr>
         <tr is="row3"></tr>
     </table>
-
 
 
     <h3>局部组件</h3>
@@ -148,16 +154,16 @@
 
 
 <script>
-    var row1 ={
-        template:'<tr><td>1</td><td>塞尔达传说</td></tr>'
+    var row1 = {
+        template: '<tr><td>1</td><td>塞尔达传说</td></tr>'
     }
 
-    var row2 ={
-        template:'<tr><td>2</td><td>超级马里奥</td></tr>'
+    var row2 = {
+        template: '<tr><td>2</td><td>超级马里奥</td></tr>'
     }
 
-    var row3 ={
-        template:'<tr><td>3</td><td>凤凰传奇</td></tr>'
+    var row3 = {
+        template: '<tr><td>3</td><td>凤凰传奇</td></tr>'
     }
 
     var weatherComponent = {
@@ -170,7 +176,12 @@
         template: '<li>{{game.title}}</li>'
     });
     Vue.component("today-weather", {
-        template: '<div>今天下雨，出不去啦，干什么，看youbube吧</div>'
+        template: '<div>今天下雨，出不去啦，干什么，{{today}}</div>',
+        data: function () {
+            return {
+                today: '雨夹雪'
+            }
+        }
     })
 
     let app = new Vue({
@@ -255,11 +266,11 @@
                 return Math.round(this.priceInTax / 16.75)
             }
         },
-        components:{
-            "my-weather":weatherComponent,
-            "row1":row1,
-            "row2":row2,
-            "row3":row3,
+        components: {
+            "my-weather": weatherComponent,
+            "row1": row1,
+            "row2": row2,
+            "row3": row3,
         }
     })
 
