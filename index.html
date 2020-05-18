@@ -17,6 +17,12 @@
 <body>
 
 <div id="app">
+    <h3>组件，事件传递，加法运算</h3>
+
+    <add-method :a="6" :b="5" v-on:add_event="getAddResult"></add-method>
+    <br/>
+    <p>结果是：{{result}}</p>
+
     <h3>组件变量验证</h3>
     <show-user-info :age="100" :name="'charles'" :details="{'address':'china','language':'chinese'}"></show-user-info>
     <h3>为组件传递变量</h3>
@@ -168,6 +174,20 @@
 
 
 <script>
+    Vue.component('add-method', {
+        props: ['a', 'b'],
+        template: '<div><button v-on:click="add">加法</button> </div>',
+        methods: {
+            add: function () {
+                var sum = 0;
+                sum = this.a + this.b;
+                console.log("sum:" + sum)
+                this.$emit('add_event', {
+                    result: sum
+                })
+            }
+        },
+    })
 
     Vue.component('show-user-info', {
         props: {
@@ -253,6 +273,7 @@
     let app = new Vue({
         el: '#app',
         data: {
+            result: 0,
             age: '',
             content: '',
             username: 'username',
@@ -290,6 +311,9 @@
 
         },
         methods: {
+            getAddResult: function (pval) {
+                this.result = pval.result;
+            },
             btnClick: function (name) {
                 this.mygame = name
             },
