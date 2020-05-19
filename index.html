@@ -17,6 +17,17 @@
 <body>
 
 <div id="app">
+    <h3>组合插槽</h3>
+    <nba-all-stars c="奥尼尔" pf="加内特">
+        <span slot="sf">皮尔斯</span>
+        <span slot="sg">雷阿伦</span>
+        <span slot="pg">隆多</span>
+    </nba-all-stars>
+    <h3>组件插槽</h3>
+    <say-to pname="koma">你做的视频太差了</say-to>
+    <say-to pname="mike">你做的视频真馋劲</say-to>
+    <say-to pname="john">你快教教他们两个吧</say-to>
+
     <h3>组件，事件传递，加法运算</h3>
 
     <add-method :a="6" :b="5" v-on:add_event="getAddResult"></add-method>
@@ -174,6 +185,22 @@
 
 
 <script>
+    Vue.component('nba-all-stars', {
+        props: ['c', 'pf'],
+        template: '<div>' +
+            '<div>中锋:{{c}}</div><br/>' +
+            '<div>大前：{{pf}}</div><br/>' +
+            '<div>小前：<slot name="sf"></slot></div><br/>' +
+            '<div>分卫：<slot name="sg"></slot></div><br/>' +
+            '<div>控卫：<slot name="pg"></slot></div><br/>' +
+            '</div>'
+    })
+
+
+    Vue.component('say-to', {
+        props: ['pname'],
+        template: '<div>你好 <strong>{{pname}}</strong><slot></slot></div> ',
+    })
     Vue.component('add-method', {
         props: ['a', 'b'],
         template: '<div><button v-on:click="add">加法</button> </div>',
