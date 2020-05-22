@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <pre>{{content}}</pre>
+    <h3>{{message}}</h3>
   </div>
 </template>
 
@@ -9,7 +10,8 @@
     name: 'HelloWorld',
     data() {
       return {
-        content: ''
+        content: '',
+        message:'Hello world',
       }
     },
     mounted() {
@@ -22,5 +24,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h3{
+  color: green;
+}
 
 </style>

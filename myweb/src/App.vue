@@ -8,11 +8,14 @@
     <button class="btn btn-danger">注意</button>
     <hr/>
 
+    <div class="myclass1">你好！自定义class</div>
+    <hr/>
     <router-view/>
   </div>
 </template>
 
 <script>
+  import './assets/my.css'
 export default {
   name: 'App'
 }
