@@ -1,6 +1,13 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+
+    <hr/>
+    <button class="btn btn-primary">确定</button>
+    <button class="btn btn-success">使用</button>
+    <button class="btn btn-danger">注意</button>
+    <hr/>
+
     <router-view/>
   </div>
 </template>
