@@ -6,6 +6,9 @@ import About from "@/components/About";
 import Player from "@/components/Player";
 import Profile from "@/components/Profile";
 import Status from "@/components/Status";
+import Header from "@/components/setting/Header";
+import Detail from "../components/setting/Detail";
+import Sidebar from "../components/setting/Sidebar";
 
 Vue.use(Router)
 
@@ -13,9 +16,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      components: {
+        header: Header,
+        sidebar: Sidebar,
+        detail: Detail
+      }
     },
+    // {
+    //   path: '/',
+    //   name: 'HelloWorld',
+    //   component: HelloWorld
+    // },
     {
       path: '/about',
       name: 'About',
