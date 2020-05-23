@@ -2,8 +2,16 @@
 
   <div>
     <h1>球员信息</h1>
-    <p>{{detail}}</p>
+    <ul>
+      <li>编号：{{detail.uid}}</li>
+      <li>名字：{{detail.name}}</li>
+      <li>得分：{{detail.point}}</li>
+    </ul>
+    <router-link :to="profile">简介</router-link>
+    <router-link :to="status">状态</router-link>
+    <router-view/>
   </div>
+
 
 </template>
 
@@ -12,14 +20,20 @@
     name: "Player",
     data() {
       return {
-        detail: {}
+        detail: {},
+        profile: '',
+        status: '',
       }
     },
     mounted() {
       this.detail = this.getPlayerDetail(this.$route.params.uid)
+      this.profile = '/player/' + this.$route.params.uid + '/profile'
+      this.status = '/player/' + this.$route.params.uid + '/status'
     },
     beforeRouteUpdate(to, from, next) {
       this.detail = this.getPlayerDetail(to.params.uid)
+      this.profile = '/player/' + to.params.uid + '/profile'
+      this.status = '/player/' + to.params.uid + '/status'
       next()
     },
     methods: {
