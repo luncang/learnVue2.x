@@ -31,6 +31,14 @@ export default new Router({
       name: 'Player',
       component: Player,
       children: [{path: 'profile', component: Profile}, {path: 'status', component: Status}]
+    }, {
+      path: 'player/:uid/profile',
+      component: Profile,
+      name: 'Profile'
+    }, {
+      path: 'player/:uid/status',
+      component: Status,
+      name: 'Status'
     }
 
   ]
