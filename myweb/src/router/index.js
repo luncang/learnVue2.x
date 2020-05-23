@@ -31,7 +31,8 @@ export default new Router({
     {
       path: '/about',
       name: 'About',
-      component: About
+      component: About,
+      alias:'/aboutme'
     },
     {
       path: '/news',
@@ -51,6 +52,12 @@ export default new Router({
       path: 'player/:uid/status',
       component: Status,
       name: 'Status'
+    },
+    {
+      //重定向
+      path: '/curry',
+      // redirect:'/player/1'
+      redirect:{name:'About'}
     }
 
   ]

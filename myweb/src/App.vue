@@ -4,9 +4,10 @@
 
     <!--    <p>-->
     <!--      <router-link to="/">Hello world</router-link>-->
-    <!--      <router-link to="/about">关于</router-link>-->
+    <router-link to="/aboutme">关于</router-link>
     <!--      <router-link to="/news">新闻</router-link>-->
-    <!--      <router-link to="/player/1">库里</router-link>-->
+    <router-link to="/player/1">库里</router-link>
+    <router-link to="/curry">curry</router-link>
     <!--      <router-link to="/player/2">哈登</router-link>-->
     <!--      <button @click="btnClick('1')">库里里</button>-->
     <!--      <button @click="btnClick('2')">哈等等</button>-->
@@ -27,6 +28,7 @@
         </td>
       </tr>
     </table>
+    <router-view/>
   </div>
 </template>
 
