@@ -11,7 +11,7 @@
     data() {
       return {
         content: '',
-        message:'Hello world',
+        message: 'Hello world',
       }
     },
     mounted() {
@@ -24,10 +24,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3{
-  color: green;
-}
 
-  //test
 
 </style>

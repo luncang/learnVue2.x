@@ -2,14 +2,13 @@
   <div id="app">
     <img src="./assets/logo.png">
 
-    <hr/>
-    <button class="btn btn-primary">确定</button>
-    <button class="btn btn-success">使用</button>
-    <button class="btn btn-danger">注意</button>
-    <hr/>
-
-    <div class="myclass1">你好！自定义class</div>
-    <hr/>
+   <p>
+     <router-link to="/">Hello world</router-link>
+     <router-link to="/about">关于</router-link>
+     <router-link to="/news">新闻</router-link>
+     <router-link to="/player/1">库里</router-link>
+     <router-link to="/player/2">哈登</router-link>
+   </p>
     <router-view/>
   </div>
 </template>
