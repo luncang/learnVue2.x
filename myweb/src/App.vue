@@ -13,6 +13,9 @@
     <!--      <button @click="btnClick('2')">哈等等</button>-->
     <!--    </p>-->
     <!--    <router-view/>-->
+    <router-link to="/user/1/usa">User1</router-link>
+    <router-link to="/user/2/china">User2</router-link>
+    <router-link to="/user/3/korea">User3</router-link>
     <table width="100%">
       <tr>
         <td colspan="2" style="background-color: darkgoldenrod">

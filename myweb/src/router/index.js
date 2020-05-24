@@ -9,11 +9,18 @@ import Status from "@/components/Status";
 import Header from "@/components/setting/Header";
 import Detail from "../components/setting/Detail";
 import Sidebar from "../components/setting/Sidebar";
+import User from "../components/User";
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/user/:uid/:nationality',
+      name: 'User',
+      component: User,
+      props: true
+    },
     {
       path: '/',
       name: 'Home',
@@ -32,7 +39,7 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About,
-      alias:'/aboutme'
+      alias: '/aboutme'
     },
     {
       path: '/news',
@@ -57,7 +64,7 @@ export default new Router({
       //重定向
       path: '/curry',
       // redirect:'/player/1'
-      redirect:{name:'About'}
+      redirect: {name: 'About'}
     }
 
   ]
